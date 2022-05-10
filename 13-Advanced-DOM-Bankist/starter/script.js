@@ -872,3 +872,26 @@ const slider = function () {
 
 slider();
 */
+
+/****************Lifecycle DOM Events****************/
+
+//domContentLoaded event , this event is fired as soon as the html is compleately parsed, meaning that the html has been downloaded and converted to the DOM tree, also all screpts must be downloaded and executed before the domContentLoaded can be run
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree built!');
+  console.log(e);
+});
+
+// if we want to run an event listener when all the css and images are done loading we can use the load event
+
+document.addEventListener('load', function (e) {
+  console.log('this is the Load event');
+  console.log(e);
+});
+
+// beforeunload event is created before a user leave a page
+// this was not working
+// document.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   return '';
+// });
