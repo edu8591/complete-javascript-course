@@ -32,7 +32,7 @@ console.log(edo instanceof Person);
 */
 
 /******************Prototypes******************/
-
+/*
 const Person = function (name, birthYear) {
   this.name = name;
   this.birthYear = birthYear;
@@ -71,3 +71,34 @@ console.log(edo.species);
 // this new property is not this instance own property, the own property of an instance are those specified in the constructo, to check to for this we do as follow:
 console.log(edo.hasOwnProperty('name'), edo.hasOwnProperty('species'));
 // this is because the species property is not inside the edo object but inside the Person.prototype
+*/
+
+/******************Prototypal inheritance in built in objects******************/
+const Person = function (name, birthYear) {
+  this.name = name;
+  this.birthYear = birthYear;
+};
+Person.prototype.calcAge = function () {
+  console.log(new Date().getFullYear() - this.birthYear);
+};
+Person.prototype.species = 'Homo Sapiens';
+
+const mathilda = new Person('Mathilda', 1980);
+const edo = new Person('Edo', 1991);
+
+console.log(edo.__proto__);
+console.log(edo.__proto__.__proto__); // this is getting the prototype for the Person constructor which is the Object prototype, here we can see that there are some methods inherited that all instances of class Person will also receive
+console.log(edo.__proto__.__proto__.__proto__); // this returns null because we already reached the Object constructor, as it is the parent it does not have a prototype other than the object it will use to create instances
+console.log(Person.prototype.constructor);
+console.dir(Person.prototype.constructor); // we use console.dir to inspect the function
+
+const arr = [1, 2, 3, 4, 5];
+console.log(arr.__proto__); // we can also check the proto of an array
+// the arr.__proto__ is equal to array.prototype
+console.log(arr.__proto__ === Array.prototype);
+console.log(arr.__proto__.__proto__);
+
+const h1 = document.querySelector('h1');
+console.dir(h1); // to inspect the element
+
+console.dir(x => x);
