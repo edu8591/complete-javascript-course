@@ -874,7 +874,7 @@ slider();
 */
 
 /****************Lifecycle DOM Events****************/
-
+/*
 //domContentLoaded event , this event is fired as soon as the html is compleately parsed, meaning that the html has been downloaded and converted to the DOM tree, also all screpts must be downloaded and executed before the domContentLoaded can be run
 
 document.addEventListener('DOMContentLoaded', function (e) {
@@ -895,3 +895,8 @@ document.addEventListener('load', function (e) {
 //   e.preventDefault();
 //   return '';
 // });
+*/
+
+/****************Defer and Async scrip loading****************/
+// there are more ways than one to load the js scrip in the html file, the regular wa of doing this is "<script src='script.js'>"
+// but we can also do the following "<script async src='script.js'>" or we can do "<script defer src='script.js'>"
