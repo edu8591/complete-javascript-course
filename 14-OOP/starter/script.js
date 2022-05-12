@@ -118,6 +118,7 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 
 GOOD LUCK 😀
 */
+/*
 
 function Car(make, speed) {
   this.make = make;
@@ -144,3 +145,46 @@ Mercedes.accelerate();
 Mercedes.brake();
 
 console.log((21 + 10 + 14 + 15 + 11 + 15 + 7) / 60);
+*/
+
+/******************ES6 Classes******************/
+
+// with this class sintax, is the same as using the constructors behind the scenes so its called sintactic sugar.
+// this new sintax is mainly to make life easier to people that come from other programing languages by giving the sintax similar to what they are used to
+
+// Class Expression
+// const PersonExp = class {
+//   constructor(name, birthYear) {
+//     this.name = name;
+//     this.birthYear = birthYear;
+//   }
+//   species = 'Homo Sapiens';
+// };
+
+// Class Declaration
+class Person {
+  constructor(name, birthYear) {
+    this.name = name;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(new Date().getFullYear() - this.birthYear);
+  }
+  species = 'Homo Sapiens';
+}
+
+const edo = new Person('Edo', 1991);
+console.log(edo);
+
+// we can still manipulate the prototype even if we use the class declaration
+Person.prototype.greet = function () {
+  console.log(`Hey ${this.name}!`);
+};
+
+edo.greet();
+
+// keep in mind about classes
+// 1) classes are not hoisted even if they are class declarations, unlike functions declarations that are
+// 2) Class are firs-class citizens, meaning we can pass them to functions and return them from functions
+// 3) Classes are allways executed in strict mode, even if we dont activate strict mode at the begining of the file
