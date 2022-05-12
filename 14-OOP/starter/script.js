@@ -74,6 +74,7 @@ console.log(edo.hasOwnProperty('name'), edo.hasOwnProperty('species'));
 */
 
 /******************Prototypal inheritance in built in objects******************/
+/*
 const Person = function (name, birthYear) {
   this.name = name;
   this.birthYear = birthYear;
@@ -102,3 +103,44 @@ const h1 = document.querySelector('h1');
 console.dir(h1); // to inspect the element
 
 console.dir(x => x);
+*/
+
+/******************Challenge #1******************/
+
+/*
+1. Use a constructor function to implement a Car. A car has a make and a speed property. The speed property is the current speed of the car in km/h;
+2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console;
+3. Implement a 'brake' method that will decrease the car's speed by 5, and log the new speed to the console;
+4. Create 2 car objects and experiment with calling 'accelerate' and 'brake' multiple times on each of them.
+
+DATA CAR 1: 'BMW' going at 120 km/h
+DATA CAR 2: 'Mercedes' going at 95 km/h
+
+GOOD LUCK 😀
+*/
+
+function Car(make, speed) {
+  this.make = make;
+  this.speed = `${speed} km/h`;
+}
+Car.prototype.accelerate = function () {
+  this.speed = `${Number.parseInt(this.speed) + 10} km/h`;
+  console.log(this.speed);
+};
+Car.prototype.brake = function () {
+  this.speed = `${Number.parseInt(this.speed) - 5} km/h`;
+  if (Number.parseInt(this.speed) < 0) this.speed = '0 km/h';
+  console.log(this.speed);
+};
+const bmw = new Car('BMW', 120);
+const Mercedes = new Car('Mercedes', 95);
+
+console.log(bmw.speed);
+bmw.accelerate();
+bmw.brake();
+
+console.log(Mercedes.speed);
+Mercedes.accelerate();
+Mercedes.brake();
+
+console.log((21 + 10 + 14 + 15 + 11 + 15 + 7) / 60);
