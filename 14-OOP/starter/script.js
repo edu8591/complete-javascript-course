@@ -148,7 +148,7 @@ console.log((21 + 10 + 14 + 15 + 11 + 15 + 7) / 60);
 */
 
 /******************ES6 Classes******************/
-
+/*
 // with this class sintax, is the same as using the constructors behind the scenes so its called sintactic sugar.
 // this new sintax is mainly to make life easier to people that come from other programing languages by giving the sintax similar to what they are used to
 
@@ -188,3 +188,54 @@ edo.greet();
 // 1) classes are not hoisted even if they are class declarations, unlike functions declarations that are
 // 2) Class are firs-class citizens, meaning we can pass them to functions and return them from functions
 // 3) Classes are allways executed in strict mode, even if we dont activate strict mode at the begining of the file
+*/
+
+/******************Getters and Setters******************/
+
+// getters and setters are functions made to manipulate data inside an object without directly accessing it
+
+const account = {
+  owner: 'Edo',
+  movements: [200, 530, 120, 300],
+  get latest() {
+    // const arr = this.movements;
+    // const [last, ...rest] = arr.reverse();
+    // return last;
+    return this.movements.slice(-1).pop();
+  },
+
+  set latest(mov) {
+    return this.movements.push(mov);
+  },
+};
+console.log(account.latest);
+
+console.log((account.latest = 100));
+console.log(account.latest);
+
+// now using getter on classes
+
+class Person {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+  calcAge() {
+    console.log();
+  }
+  get age() {
+    return new Date().getFullYear() - this.birthYear;
+  }
+
+  set fullName(name) {
+    if (name.includes(' ')) this.fullName = name;
+    else alert(`${name} is not a full name`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+}
+const edo = new Person('edo serr', 1991);
+
+console.log(edo.age);
