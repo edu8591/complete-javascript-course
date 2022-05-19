@@ -191,7 +191,7 @@ edo.greet();
 */
 
 /******************Getters and Setters******************/
-
+/*
 // getters and setters are functions made to manipulate data inside an object without directly accessing it
 
 const account = {
@@ -239,3 +239,14 @@ class Person {
 const edo = new Person('edo serr', 1991);
 
 console.log(edo.age);
+*/
+/******************Static Methods(class methods)******************/
+const PersonCl = function (fullName, birthYear) {
+  this.fullName = fullName;
+  this.birthYear = birthYear;
+};
+//to add a static method
+PersonCl.hey = function () {
+  console.log('hey');
+};
+// now instances of PersonCl will not inherit the hey method because it is not in the prototype
