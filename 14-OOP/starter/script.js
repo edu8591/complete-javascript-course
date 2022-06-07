@@ -241,6 +241,7 @@ const edo = new Person('edo serr', 1991);
 console.log(edo.age);
 */
 /******************Static Methods(class methods)******************/
+/*
 const PersonCl = function (fullName, birthYear) {
   this.fullName = fullName;
   this.birthYear = birthYear;
@@ -276,3 +277,41 @@ const edo = new Person('edo', 1991);
 
 console.log(edo.calcAge);
 console.log(Person.greet('morning'));
+*/
+
+/******************Object.create******************/
+
+// after constructor functions and es6 classes, there is a third way to implement prototypal inheritance
+
+// with the object.create there is still the idea of prototypal inheritance but there are no prototype properties and no constructor function or new operator
+
+// we can manually set the prototype of an object to any other object that we want
+
+// class PersonProto {
+//   constructor(name, birthYear) {
+//     this.name = name;
+//     this.birthYear = birthYear;
+//   }
+//   get calcAge() {
+//     return new Date().getFullYear() - this.birthYear;
+//   }
+// }
+const PersonProto = {
+  calcAge() {
+    return new Date().getFullYear() - this.birthYear;
+  },
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+const steven = Object.create(PersonProto);
+steven.name = 'steven';
+steven.birthYear = 1991;
+// console.log(steven);
+console.log(steven.calcAge());
+
+const sarah = Object.create(PersonProto);
+sarah.init('sarah', 1999);
+
+console.log(sarah.calcAge());
