@@ -250,3 +250,29 @@ PersonCl.hey = function () {
   console.log('hey');
 };
 // now instances of PersonCl will not inherit the hey method because it is not in the prototype
+
+// another example using the class keyword to define a Person class ans set static methods
+
+class Person {
+  constructor(name, birthYear) {
+    this.name = name;
+    this.birthYear = birthYear;
+  }
+
+  get calcAge() {
+    return new Date().getFullYear() - this.birthYear;
+  }
+
+  // we can use the static keyword to create static methods
+  static greet(time = '') {
+    console.log(this);
+    if (time.toLowerCase() === 'morning') return 'Good Morning';
+    if (time.toLowerCase() === 'afternoon') return 'Good Afternoon';
+    return 'Hello There';
+  }
+}
+
+const edo = new Person('edo', 1991);
+
+console.log(edo.calcAge);
+console.log(Person.greet('morning'));
