@@ -329,7 +329,7 @@ DATA CAR 1: 'Ford' going at 120 km/h
 
 GOOD LUCK 😀
 */
-
+/*
 class Car {
   constructor(make, speed) {
     this.make = make;
@@ -361,3 +361,39 @@ ford.speedUS;
 ford.accelerate();
 ford.brake();
 ford.brake();
+*/
+
+/******************Inheritance between classes: constructor functions******************/
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+Person.prototype.calcAge = function () {
+  console.log(new Date().getFullYear() - this.birthYear);
+};
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
+  // this.firstName = firstName;
+  // this.birthYear = birthYear;
+  this.course = course;
+};
+
+Student.prototype = Object.create(Person.prototype);
+
+// with this the Student.prototype is now an object that inherits from the Person.prototype
+
+// Why do we need to use Object.create? -> we could have also use the following "Student.prototype = Person.prototype", but by doing so whenever we we add a new method to the Student.prototype we will be also adding it to the Person.proto because Student.proto will be a copy to the location in memory on Person.proto, meaning that it will be the exact same object Person is using
+
+Student.prototype.constructor = Student;
+// we have to set back the constructor to student so that the instances of the classes are of type Student, it changed to Person when we used the Object.create
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName}, and  study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2000, 'Computer Science');
+mike.introduce();
+mike.calcAge();
+
+console.log(mike instanceof Student);
