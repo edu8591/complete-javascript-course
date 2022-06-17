@@ -331,20 +331,18 @@ GOOD LUCK 😀
 */
 
 class Car {
-  constructor(speed) {
+  constructor(make, speed) {
+    this.make = make;
     this.speed = speed;
   }
-  get accelerate() {
+  accelerate() {
+    this.speed += 10;
     console.log(`${this.speed} Km/h`);
     return `${this.speed} Km/h`;
   }
-  set accelerate(increase) {
-    this.speed += increase;
-    return this.accelerate;
-  }
-  get brake() {
+  brake() {
     this.speed -= 5;
-    return this.accelerate;
+    console.log(`${this.speed} Km/h`);
   }
   get speedUS() {
     console.log(`${this.speed / 1.6} Mi/h`);
@@ -357,6 +355,9 @@ class Car {
   }
 }
 
-const ford = new Car(120);
+const ford = new Car('ford', 120);
 
 ford.speedUS;
+ford.accelerate();
+ford.brake();
+ford.brake();
