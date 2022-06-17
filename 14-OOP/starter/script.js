@@ -411,7 +411,7 @@ DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
 
 GOOD LUCK 😀
 */
-
+/*
 // Car is the iplementation of challenge 1
 const Car = function (make, speed) {
   this.make = make;
@@ -450,3 +450,62 @@ const tesla = new EV('Tesla', 120, 23);
 
 tesla.chargeBattery(100);
 tesla.accelerate();
+*/
+
+/******************Inheritance for ES6 classes******************/
+
+class Person {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+  calcAge() {
+    console.log(new Date().getFullYear() - this.birthYear);
+  }
+  greet() {
+    console.log(`Hello, my name is ${this.fullName}`);
+  }
+  get age() {
+    return new Date().getFullYear() - this.birthYear;
+  }
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name`);
+  }
+  get fullName() {
+    return this._fullName;
+  }
+  static hey() {
+    console.log('Hey there');
+  }
+}
+
+class Student extends Person {
+  constructor(fullName, birthYear, course) {
+    // this needs to happen first because the supper function is responsible for creating the 'this' keyword
+    super(fullName, birthYear);
+    this.course = course;
+  }
+  introduce() {
+    console.log(`My name is ${this.fullName}, and I study ${this.course}`);
+  }
+  // ti override a method we have to declare it again
+  calcAge() {
+    console.log(
+      `I am ${
+        new Date().getFullYear() - this.birthYear
+      } years old, but as a student I fill more like ${
+        new Date().getFullYear() - this.birthYear + 10
+      }`
+    );
+  }
+}
+
+// if the new child element has only the exact same attributes as its parent there is no neede to use the constructor function call
+// class Student extends Person {}
+// const martha new Student('martha jones' 1990)
+
+const martha = new Student('martha jones', 1990, 'computer sciense');
+
+martha.introduce();
+martha.calcAge();
