@@ -296,6 +296,7 @@ console.log(Person.greet('morning'));
 //     return new Date().getFullYear() - this.birthYear;
 //   }
 // }
+/*
 const PersonProto = {
   calcAge() {
     return new Date().getFullYear() - this.birthYear;
@@ -315,3 +316,47 @@ const sarah = Object.create(PersonProto);
 sarah.init('sarah', 1999);
 
 console.log(sarah.calcAge());
+*/
+/******************coding challenge #2******************/
+
+/*
+1. Re-create challenge 1, but this time using an ES6 class;
+2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6);
+3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6);
+4. Create a new car and experiment with the accelerate and brake methods, and with the getter and setter.
+
+DATA CAR 1: 'Ford' going at 120 km/h
+
+GOOD LUCK 😀
+*/
+
+class Car {
+  constructor(speed) {
+    this.speed = speed;
+  }
+  get accelerate() {
+    console.log(`${this.speed} Km/h`);
+    return `${this.speed} Km/h`;
+  }
+  set accelerate(increase) {
+    this.speed += increase;
+    return this.accelerate;
+  }
+  get brake() {
+    this.speed -= 5;
+    return this.accelerate;
+  }
+  get speedUS() {
+    console.log(`${this.speed / 1.6} Mi/h`);
+    return `${this.speed / 1.6} Mi/h`;
+  }
+  set speedUS(change) {
+    console.log(change);
+    this.speed = change * 1.6;
+    return this.speedUS;
+  }
+}
+
+const ford = new Car(120);
+
+ford.speedUS;
