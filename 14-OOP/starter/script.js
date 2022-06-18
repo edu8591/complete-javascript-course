@@ -386,6 +386,7 @@ Student.prototype = Object.create(Person.prototype);
 // Why do we need to use Object.create? -> we could have also use the following "Student.prototype = Person.prototype", but by doing so whenever we we add a new method to the Student.prototype we will be also adding it to the Person.proto because Student.proto will be a copy to the location in memory on Person.proto, meaning that it will be the exact same object Person is using
 
 Student.prototype.constructor = Student;
+
 // we have to set back the constructor to student so that the instances of the classes are of type Student, it changed to Person when we used the Object.create
 
 Student.prototype.introduce = function () {
@@ -453,7 +454,7 @@ tesla.accelerate();
 */
 
 /******************Inheritance for ES6 classes******************/
-
+/*
 class Person {
   constructor(fullName, birthYear) {
     this.fullName = fullName;
@@ -509,3 +510,40 @@ const martha = new Student('martha jones', 1990, 'computer sciense');
 
 martha.introduce();
 martha.calcAge();
+*/
+
+/******************Inheritance between classes using Object.create******************/
+
+const PersonProto = {
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+  calcAge() {
+    const age = new Date().getFullYear() - this.birthYear;
+    // console.log(age);
+    return age;
+  },
+};
+
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+StudentProto.introduce = function () {
+  console.log(
+    `Hi my name is ${
+      this.firstName[0].toUpperCase() + this.firstName.slice(1)
+    }, I am ${this.calcAge()} years old, and study ${this.course}`
+  );
+};
+
+const jay = Object.create(StudentProto);
+jay.init('jay', 2000, 'Computer Science');
+jay.introduce();
+jay.calcAge();
+console.log(jay);
