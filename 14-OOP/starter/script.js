@@ -513,7 +513,7 @@ martha.calcAge();
 */
 
 /******************Inheritance between classes using Object.create******************/
-
+/*
 const PersonProto = {
   init(firstName, birthYear) {
     this.firstName = firstName;
@@ -547,3 +547,46 @@ jay.init('jay', 2000, 'Computer Science');
 jay.introduce();
 jay.calcAge();
 console.log(jay);
+*/
+
+/******************Other class Example******************/
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.locale = navigator.language;
+
+    console.log(`Thanks for opening a new account with us ${this.owner}.`);
+  }
+
+  // Public interface
+  set deposit(amount) {
+    this.movements.push(amount);
+  }
+  set withdraw(amount) {
+    this.movements.push(amount > 0 ? -amount : amount);
+  }
+  approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit = 100;
+      console.log(`Loan for ${val} approved.`);
+    }
+  }
+}
+
+const acc1 = new Account('Jonas', 'Euro', 1111);
+acc1.deposit = 100;
+acc1.withdraw = 50;
+console.log(acc1);
+
+acc1.requestLoan(100);
+// at the moment we have no data privacy becase we can also call the approveLoan method which should be a private one
+console.log(acc1.approveLoan(10)); // we should not be able to do this
+console.log(acc1);
