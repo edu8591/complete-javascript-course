@@ -550,7 +550,7 @@ console.log(jay);
 */
 
 /******************Other class Example******************/
-
+/*
 class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
@@ -590,3 +590,64 @@ acc1.requestLoan(100);
 // at the moment we have no data privacy becase we can also call the approveLoan method which should be a private one
 console.log(acc1.approveLoan(10)); // we should not be able to do this
 console.log(acc1);
+*/
+/******************Encapsulation: Private Class Fields and Methods******************/
+
+//there are 8 types of fields
+// 1) public fields: we can think of a field as a property that will be on all instances
+// 2) private fields
+// 3) public methods
+// 4) private methods
+// 5) public static fields
+// 6) private static fields
+// 7) public static method
+// 8) private static method
+class Account {
+  // 1) Public field declaration
+  locale = navigator.language;
+
+  // 2) Private fields
+  #movements = [];
+  #pin;
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    // protected property
+    this.#pin = pin;
+    // this._movements = [];
+    // this.locale = navigator.language;
+  }
+  // 3) public methods
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    return this.#movements.push(val);
+  }
+
+  withdraw(val) {
+    return this.#movements.push(val > 0 ? -val : val);
+  }
+
+  requestLoan(val) {
+    if (this._approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Your loan request for ${val} was approved.`);
+    }
+  }
+  // 4) private methods
+  // are still not supported by any browser as of today
+  // #approveLoan(val) {
+  //   return true;
+  // }
+  _approveLoan(val) {
+    return true;
+  }
+}
+
+const ex = new Account('edo', 'eur', 1111);
+
+console.log(ex);
+
+ex.requestLoan(50);
