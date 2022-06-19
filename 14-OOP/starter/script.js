@@ -592,7 +592,7 @@ console.log(acc1.approveLoan(10)); // we should not be able to do this
 console.log(acc1);
 */
 /******************Encapsulation: Private Class Fields and Methods******************/
-
+/*
 //there are 8 types of fields
 // 1) public fields: we can think of a field as a property that will be on all instances
 // 2) private fields
@@ -651,3 +651,50 @@ const ex = new Account('edo', 'eur', 1111);
 console.log(ex);
 
 ex.requestLoan(50);
+*/
+
+/******************Chaining methods******************/
+
+class Account {
+  locale = navigator.language;
+  #movements = [];
+  #pin;
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+  }
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+    return this;
+  }
+
+  withdraw(val) {
+    this.#movements.push(val > 0 ? -val : val);
+    return this;
+  }
+
+  requestLoan(val) {
+    if (this._approveLoan(val)) {
+      this.deposit(val);
+      console.log('Loan approved');
+      return this;
+    }
+  }
+
+  _approveLoan(val) {
+    return true;
+  }
+
+  static helper() {
+    console.log('This is a helper method');
+  }
+}
+const ex = new Account('edo', 'eur', 1111);
+ex.deposit(500).requestLoan(50_000).withdraw(5000);
+
+console.log(ex.getMovements().reduce((acc, next) => acc + next));
