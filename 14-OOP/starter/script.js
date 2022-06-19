@@ -654,7 +654,7 @@ ex.requestLoan(50);
 */
 
 /******************Chaining methods******************/
-
+/*
 class Account {
   locale = navigator.language;
   #movements = [];
@@ -698,3 +698,62 @@ const ex = new Account('edo', 'eur', 1111);
 ex.deposit(500).requestLoan(50_000).withdraw(5000);
 
 console.log(ex.getMovements().reduce((acc, next) => acc + next));
+*/
+
+/******************Class overview******************/
+
+class Person {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+  calcAge() {
+    return new Date().getFullYear() - this.birthYear;
+  }
+
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name`);
+  }
+  get fullName() {
+    return this._fullName;
+  }
+}
+
+class Student extends Person {
+  university = 'University of London';
+  #course;
+  #studyHours = 0;
+  static numbOfSubjects = 10;
+
+  constructor(fullName, birthYear, startYear, course) {
+    super(fullName, birthYear);
+    this.startYear = startYear;
+    this.#course = course;
+  }
+  introduce() {
+    console.log(
+      `Hi I am ${this.fullName} I am ${this.calcAge()} years old and study ${
+        this.#course
+      }.`
+    );
+  }
+  study(hours) {
+    this.#makeCoffee();
+    this.#studyHours += hours;
+  }
+  #makeCoffee() {
+    console.log(`${this.fullName} brewed a delicious cup of coffee.`);
+  }
+
+  get testScore() {
+    return this._testScore;
+  }
+
+  set testScore(score) {
+    this._testScore = score >= 30 ? 'Pass' : 'Fail';
+  }
+  static printCurriculum() {
+    console.log(`There are ${this.numbOfSubjects} subjects in this carreer.`);
+  }
+}
