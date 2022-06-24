@@ -11,14 +11,76 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-if (navigator.geolocation)
+if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
     function (position) {
       const { latitude, longitude } = position.coords;
 
-      console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+      // console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+
+      const map = L.map('map').setView([latitude, longitude], 14);
+      // console.log(map) // just to see how map works thanks to the library we are using
+      map.on('click', mapEvent => {
+        let { lat, lng } = mapEvent.latlng;
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(
+            L.popup({
+              maxWidth: 250,
+              minWidth: 100,
+              autoClose: false,
+              closeOnClick: false,
+              className: 'runing-popup',
+            }).setContent('runing')
+          )
+          .openPopup();
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .openPopup();
     },
     function () {
       alert('Could not get your possition');
     }
   );
+}
+
+// let lat, long;
+// const getLatLong = function () {
+//   navigator.geolocation.getCurrentPosition(
+//     function (position) {
+//       lat = position.coords.latitude;
+//       long = position.coords.longitude;
+//     },
+//     function () {
+//       alert('this is an alert');
+//     }
+//   );
+// };
+// const map = L.map('map');
+// const setView = function () {
+//   map.setView([lat, long], 15);
+// };
+// L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+//   attribution:
+//     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+// }).addTo(map);
+// function addMarker(lat, long) {
+//   L.marker([lat, long])
+//     .addTo(map)
+//     .bindPopup(`marker for coords ${lat}, ${long}.`)
+//     .openPopup();
+// }
+// map.addEventListener('click', function (e) {
+//   const coords = e.latlng;
+//   console.log(coords);
+//   addMarker(coords.lat, coords.lng);
+// });
+// const addMarker = function (e) {};
