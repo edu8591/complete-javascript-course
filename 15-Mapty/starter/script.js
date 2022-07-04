@@ -14,43 +14,66 @@ const inputElevation = document.querySelector('.form__input--elevation');
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
     function (position) {
-      const { latitude, longitude } = position.coords;
+      const { longitude, latitude } = position.coords;
+      const coords = [latitude, longitude];
+      const map = L.map('map').setView(coords, 13);
 
-      // console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
-
-      const map = L.map('map').setView([latitude, longitude], 14);
-      // console.log(map) // just to see how map works thanks to the library we are using
-      map.on('click', mapEvent => {
-        let { lat, lng } = mapEvent.latlng;
-        L.marker([lat, lng])
-          .addTo(map)
-          .bindPopup(
-            L.popup({
-              maxWidth: 250,
-              minWidth: 100,
-              autoClose: false,
-              closeOnClick: false,
-              className: 'runing-popup',
-            }).setContent('runing')
-          )
-          .openPopup();
-      });
-
-      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot//{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      L.marker([latitude, longitude])
+      L.marker(coords)
         .addTo(map)
         .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
         .openPopup();
     },
     function () {
-      alert('Could not get your possition');
+      alert('could not get your position');
     }
   );
 }
+
+// if (navigator.geolocation) {
+//   navigator.geolocation.getCurrentPosition(
+//     function (position) {
+//       const { latitude, longitude } = position.coords;
+
+//       // console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+
+//       const map = L.map('map').setView([latitude, longitude], 14);
+//       // console.log(map) // just to see how map works thanks to the library we are using
+//       map.on('click', mapEvent => {
+//         let { lat, lng } = mapEvent.latlng;
+//         L.marker([lat, lng])
+//           .addTo(map)
+//           .bindPopup(
+//             L.popup({
+//               maxWidth: 250,
+//               minWidth: 100,
+//               autoClose: false,
+//               closeOnClick: false,
+//               className: 'runing-popup',
+//             }).setContent('runing')
+//           )
+//           .openPopup();
+//       });
+
+//       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+//         attribution:
+//           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+//       }).addTo(map);
+
+//       L.marker([latitude, longitude])
+//         .addTo(map)
+//         .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+//         .openPopup();
+//     },
+//     function () {
+//       alert('Could not get your possition');
+//     }
+//   );
+// }
 
 // let lat, long;
 // const getLatLong = function () {
