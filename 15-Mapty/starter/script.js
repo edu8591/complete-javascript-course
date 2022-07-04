@@ -17,16 +17,31 @@ if (navigator.geolocation) {
       const { longitude, latitude } = position.coords;
       const coords = [latitude, longitude];
       const map = L.map('map').setView(coords, 13);
-
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot//{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      L.marker(coords)
-        .addTo(map)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-        .openPopup();
+      // Adding event listeners to get coordinates on click events
+      // Using the on method that comes on the L library when we created the mal constant, it allows to set an event listener directly on the map
+
+      map.on('click', function (mapEvent) {
+        console.log(mapEvent);
+        // latlng: v {lat: -2.085053707057894, lng: -79.86
+        const { lat, lng } = mapEvent.latlng;
+        const popup = L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: 'running-popup',
+        });
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(popup)
+          .setPopupContent('workout')
+          .openPopup();
+      });
     },
     function () {
       alert('could not get your position');
